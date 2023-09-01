@@ -4,18 +4,10 @@
     class="relative z-0"
 >
     <div
-        x-data="{
-            editor: null,
-            state: $wire.entangle('{{ $getStatePath() }}'),
-            destroy: () => {
-                if (this.editor) {
-                    this.editor.remove();
-                }
-            }
-        }"
+        x-data="{ state: $wire.entangle('{{ $getStatePath() }}') }"
         x-load-js="[@js(\Filament\Support\Facades\FilamentAsset::getScriptSrc($getLanguageId(), 'mohamedsabil83/filament-forms-tinyeditor'))]"
         x-init="() => {
-            editor = tinymce.createEditor('tiny-editor-{{ $getId() }}', {
+            tinymce.createEditor('tiny-editor-{{ $getId() }}', {
                 target: $refs.tinymce,
                 language: '{{ $getInterfaceLanguage() }}',
                 language_url: 'https://cdn.jsdelivr.net/npm/tinymce-i18n@23.7.24/langs5/{{ $getInterfaceLanguage() }}.min.js',
@@ -94,8 +86,8 @@
                     });
                 },
                 {{ $getCustomConfigs() }}
-            });
-            editor.render();
+            })
+            .render();
         }"
         x-cloak
         wire:ignore
